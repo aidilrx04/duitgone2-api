@@ -16,6 +16,7 @@ class Transaction extends Model
     ];
 
     protected $casts = [
-        'date' => 'datetime'
+        'date' => 'datetime',
+        'amount' => 'float'
     ];
 }
