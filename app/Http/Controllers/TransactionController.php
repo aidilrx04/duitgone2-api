@@ -25,9 +25,9 @@ class TransactionController extends Controller
      */
     public function store(StoreTransactionRequest $request)
     {
-        $safe = $request->safe();
+        $validated = $request->validated();
 
-        $transaction = Transaction::create($safe);
+        $transaction = Transaction::create($validated);
 
         return $transaction;
     }
@@ -45,9 +45,9 @@ class TransactionController extends Controller
      */
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
     {
-        $safe = $request->safe();
+        $validated = $request->validated();
 
-        $transaction->update($safe);
+        $transaction->update($validated);
 
         return $transaction;
     }
