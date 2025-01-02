@@ -8,4 +8,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('transactions', TransactionController::class);
+Route::as('api.')->group(function () {
+    Route::apiResource('transactions', TransactionController::class);
+});
