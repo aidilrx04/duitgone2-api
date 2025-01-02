@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->decimal("amount");
+            $table->dateTime('date');
 
             $table->timestamps();
         });
