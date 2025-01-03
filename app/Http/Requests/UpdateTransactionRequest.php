@@ -23,7 +23,8 @@ class UpdateTransactionRequest extends FormRequest
     {
         return [
             'amount' => 'nullable|numeric',
-            'date' => 'nullable|date'
+            'date' => 'nullable|date',
+            'category_id' => 'nullable|integer'
         ];
     }
 }
