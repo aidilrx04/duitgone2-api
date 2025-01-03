@@ -16,6 +16,9 @@ class TransactionSeeder extends Seeder
     {
         $total = 20;
 
-        Transaction::factory()->for(Category::inRandomOrder()->first())->count($total)->create();
+        for ($i = 0; $i < $total; $i++)
+            Transaction::factory()
+                ->for(Category::inRandomOrder()->first())
+                ->create();
     }
 }
