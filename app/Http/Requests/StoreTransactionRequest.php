@@ -23,7 +23,8 @@ class StoreTransactionRequest extends FormRequest
     {
         return [
             "amount" => 'required|numeric',
-            'date' => 'required|date'
+            'date' => 'required|date',
+            'category_id' => 'required|integer'
         ];
     }
 }
