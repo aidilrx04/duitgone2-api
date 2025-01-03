@@ -5,7 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Transaction;
+use App\Support\InvalidRequestResponse;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\Enums\FilterOperator;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TransactionController extends Controller
 {
@@ -14,10 +20,25 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        // show all transactions
-        $transactions = Transaction::all();
+        try {
 
-        return $transactions;
+            // show all transactions
+            $transactions = QueryBuilder::for(Transaction::class)
+                ->allowedFilters([
+                    AllowedFilter::exact('id'),
+                    AllowedFilter::operator('amount', FilterOperator::DYNAMIC),
+                    AllowedFilter::operator('created_at', FilterOperator::DYNAMIC),
+                    'category.label'
+                ])
+                ->allowedIncludes(['category'])
+                ->allowedSorts(['id', 'amount', 'created_at'])
+                ->get();
+
+            return $transactions;
+        } catch (Exception $e) {
+            Log::error($e, request()->query());
+            return InvalidRequestResponse::notAllowed();
+        }
     }
 
     /**
