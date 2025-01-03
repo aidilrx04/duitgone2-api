@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Support\InvalidRequestResponse;
+use Exception;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CategoryController extends Controller
 {
@@ -13,9 +17,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
-
-        return $categories;
+        try {
+            $categories = QueryBuilder::for(Category::class)
+                ->allowedFilters(['label', AllowedFilter::exact('id')])
+                ->get();
+            return $categories;
+        } catch (Exception $e) {
+            report($e);
+            return InvalidRequestResponse::notAllowed();
+        }
     }
 
     /**
