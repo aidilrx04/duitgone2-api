@@ -27,7 +27,7 @@ class CategoryController extends Controller
 
         $category = Category::create($validated);
 
-        return $validated;
+        return $category;
     }
 
     /**
