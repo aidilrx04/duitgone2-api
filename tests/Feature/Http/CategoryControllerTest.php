@@ -12,7 +12,7 @@ class CategoryControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function it_can_list_all_categories()
+    public function test_it_can_list_all_categories()
     {
         Category::factory()->count(3)->create();
 
@@ -23,7 +23,7 @@ class CategoryControllerTest extends TestCase
             ->assertJsonCount(3);
     }
 
-    public function it_can_store_a_category()
+    public function test_it_can_store_a_category()
     {
         $data = [
             'label' => 'Test Category',
@@ -38,7 +38,7 @@ class CategoryControllerTest extends TestCase
         $this->assertDatabaseHas('categories', $data);
     }
 
-    public function it_can_show_a_category()
+    public function test_it_can_show_a_category()
     {
         $category = Category::factory()->create();
 
@@ -52,7 +52,7 @@ class CategoryControllerTest extends TestCase
             ]);
     }
 
-    public function it_can_update_a_category()
+    public function test_it_can_update_a_category()
     {
         $category = Category::factory()->create();
 
@@ -69,7 +69,7 @@ class CategoryControllerTest extends TestCase
         $this->assertDatabaseHas('categories', $data);
     }
 
-    public function it_can_delete_a_category()
+    public function test_it_can_delete_a_category()
     {
         $category = Category::factory()->create();
 
