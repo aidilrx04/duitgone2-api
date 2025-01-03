@@ -1,0 +1,18 @@
+###
+POST http://127.0.0.1:8000/api/transactions
+Content-Type: application/json
+Accept: application/json
+
+{
+	"amount": 50.50, 
+	"date": "2024-02-01",
+	"category_id": 1
+}
+###
+POST http://127.0.0.1:8000/api/categories
+Content-Type: application/json
+Accept: application/json
+
+{
+	"label": "balls"
+}
