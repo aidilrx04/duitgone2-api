@@ -58,7 +58,15 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        return $transaction;
+        try {
+            $transaction = QueryBuilder::for(Transaction::where('id', $transaction->id))
+                ->allowedIncludes(['category'])
+                ->first();
+            return $transaction;
+        } catch (Exception $e) {
+            Log::error($e, request()->query());
+            return InvalidRequestResponse::notAllowed();
+        }
     }
 
     /**
