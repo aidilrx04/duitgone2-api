@@ -49,7 +49,17 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return $category;
+        try {
+
+            $category = QueryBuilder::for(Category::where('id', $category->id))
+                ->allowedIncludes(['transactions'])
+                ->first();
+
+            return $category;
+        } catch (Exception $e) {
+            Log::error($e);
+            return InvalidRequestResponse::notAllowed();
+        }
     }
 
     /**
